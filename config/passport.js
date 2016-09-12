@@ -2,6 +2,7 @@
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
+var jwt = require('jwt-simple');
 
 module.exports = function(passport) {
     var config = require('./config.js');
@@ -45,6 +46,10 @@ module.exports = function(passport) {
                 if (bcrypt.compareSync(password, user.password)) {
                     console.log("Password matches");
                      // all is well, return successful user
+                     //user has authenticated correctly thus we create a JWT token 
+   // var token = jwt.encode({ username: 'somedata'}, tokenSecret);
+   // res.json({ token : token });
+
                     return done(null, user);
                 } else {
                     console.log("Password is not correct");
@@ -84,6 +89,10 @@ module.exports = function(passport) {
                         return done(null, false, { message : "There was a problem inserting the new user into Cloudant" } );
                     } else {
                         // successful creation of the user
+          //user has authenticated correctly thus we create a JWT token 
+  //  var token = jwt.encode({ username: 'somedata'}, tokenSecret);
+   // res.json({ token : token });
+              
                         return done(null, user);
                     }
                 })
